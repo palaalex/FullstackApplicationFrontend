@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { User } from '../types/User';
-import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import toast from 'react-hot-toast';
 
 export default function () {
@@ -8,9 +8,14 @@ export default function () {
 
 
   const fetchUsers = async () => {
+    let localToken: string = localStorage.getItem('token') || '';
+
     const requestOptions = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'token': localToken
+      },
     };
     try {
       await fetch('http://localhost:8080/demo/all', requestOptions)
@@ -42,20 +47,20 @@ export default function () {
           <TableHead>
             <TableRow>
               <TableCell>Id</TableCell>
-              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Username</TableCell>
               <TableCell align="right">Email</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {userList?.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
-                <TableCell align="right">{row.name}</TableCell>
+                <TableCell align="right">{row.username}</TableCell>
                 <TableCell align="right">{row.email}</TableCell>
               </TableRow>
             ))}

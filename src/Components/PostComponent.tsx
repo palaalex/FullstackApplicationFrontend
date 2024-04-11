@@ -1,4 +1,4 @@
-import { Button, Divider, IconButton, TextField } from "@mui/material";
+import { Button, Divider, TextField } from "@mui/material";
 import { useState } from "react"
 import toast from "react-hot-toast";
 
@@ -6,7 +6,7 @@ export default function PostComponent() {
   const [name, setName] = useState<String>("");
   const [email, setEmail] = useState<String>("");
 
-  const submitForm = async (e: any) => {
+  const submitForm = async () => {
     console.log(name);
     if (name != "" && email != "") {
       const requestOptions = {
@@ -31,7 +31,7 @@ export default function PostComponent() {
       <div className="flex flex-row gap-6">
         <TextField id="filled-basic" label="Name" value={name} variant="outlined" onChange={(e) => setName(e.target.value)} />
         <TextField id="filled-basic" label="Email" value={email} variant="outlined" onChange={(e) => setEmail(e.target.value)} />
-        <Button variant="contained" type="submit" className='h-12' onClick={(e) => submitForm(e)}>Submit</Button>
+        <Button variant="contained" type="submit" className='h-12' onClick={() => submitForm}>Submit</Button>
       </div>
 
       <Divider className='pt-8'></Divider>

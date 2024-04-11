@@ -1,5 +1,5 @@
 import { Button, Divider, TextField } from '@mui/material';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast';
 
 export default function DeleteByIdComponent() {

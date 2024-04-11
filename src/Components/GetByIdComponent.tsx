@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { User } from '../types/User';
 import UserComponent from './UserComponent';
 import { Button, Divider, TextField } from '@mui/material';
@@ -10,9 +10,14 @@ export default function () {
 
 
   const fetchUsers = async () => {
+    let localToken: string = localStorage.getItem('token') || '';
+
     const requestOptions = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+      'Content-Type': 'application/json' ,
+      'token': localToken
+      },
     };
     try{
       await fetch(`http://localhost:8080/demo/user/${id}`, requestOptions)
