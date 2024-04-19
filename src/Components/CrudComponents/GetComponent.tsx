@@ -1,14 +1,15 @@
 import { useState } from 'react'
-import { User } from '../types/User';
+import { User } from '../../types/User';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import toast from 'react-hot-toast';
+import { getAccessToken } from '../../util/token';
 
 export default function () {
   const [userList, setUserList] = useState<Array<User>>();
 
 
   const fetchUsers = async () => {
-    let localToken: string = localStorage.getItem('token') || '';
+    let localToken: string = getAccessToken() || '';
 
     const requestOptions = {
       method: 'GET',
