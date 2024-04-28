@@ -5,10 +5,9 @@ import { Label } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import MESSAGES from '../../util/messages';
-import { setAccessToken } from '../../util/token';
 
 
-export default function RegisterComponent() {
+export default function RegisterComponent({ setUserData }: any) {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -32,9 +31,9 @@ export default function RegisterComponent() {
     })
       .then(res => res.json())
       .then((data: any) => {
-        setAccessToken(data.token);
+        localStorage.setItem("token", data.token);
+        setUserData(data.token);
         navigate("/");
-        window.location.reload();
       })
       .catch((err) => {
         console.log(err);

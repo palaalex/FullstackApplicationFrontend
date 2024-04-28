@@ -3,7 +3,6 @@ import { User } from '../../types/User';
 import UserComponent from '../UserComponent';
 import { Button, Divider, TextField } from '@mui/material';
 import toast from 'react-hot-toast';
-import { getAccessToken } from '../../util/token';
 
 export default function () {
   const [user, setUser] = useState<User>();
@@ -11,7 +10,7 @@ export default function () {
 
 
   const fetchUsers = async () => {
-    let localToken: string = getAccessToken() || '';
+    const localToken = localStorage.getItem("token") || '';
 
     const requestOptions = {
       method: 'GET',

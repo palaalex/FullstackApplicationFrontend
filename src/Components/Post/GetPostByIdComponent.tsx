@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 import { Post } from '../../types/Post';
 import PostBodyComponent from './PostBodyComponent';
 import MESSAGES from '../../util/messages';
-import { getAccessToken } from '../../util/token';
 
 export default function () {
   const [post, setPost] = useState<Post>();
@@ -14,7 +13,7 @@ export default function () {
 
   const handlePosts = async (e: any) => {
     e.preventDefault();
-    let localToken: string = getAccessToken() || '';
+    const localToken = localStorage.getItem("token") || '';
 
     const requestOptions = {
       method: 'GET',

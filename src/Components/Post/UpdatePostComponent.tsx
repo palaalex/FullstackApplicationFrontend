@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
 import MESSAGES from '../../util/messages';
-import { getAccessToken } from '../../util/token';
 
 export default function UpdatePostComponent(props: any) {
   const post = props.post;
@@ -20,12 +19,10 @@ export default function UpdatePostComponent(props: any) {
     setOpen(false);
   };
 
-
   const navigation = useNavigate();
+  const localToken = localStorage.getItem("token") || '';
 
-  const localToken: string = getAccessToken() || '';
   const handlePost = async () => {
-
     const reqBody = {
       title: title,
       content: content,

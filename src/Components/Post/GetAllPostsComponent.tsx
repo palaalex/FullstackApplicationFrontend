@@ -7,12 +7,10 @@ import MESSAGES from '../../util/messages';
 import { jwtDecode } from 'jwt-decode';
 import { UserData } from '../../types/UserData';
 import { useNavigate } from 'react-router-dom';
-import { getAccessToken } from '../../util/token';
-
 export default function GetAllPostsComponent() {
   const [postList, setPostList] = useState<Array<Post>>([]);
   const [userData, setUserData] = useState<UserData>({ isLogged: false })
-  const token = getAccessToken()
+  const token = localStorage.getItem("token") || '';
 
 
   useEffect(() => {

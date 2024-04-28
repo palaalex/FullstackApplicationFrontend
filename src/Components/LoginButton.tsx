@@ -2,7 +2,6 @@ import { Button, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { MdAccountCircle } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { setAccessToken } from "../util/token";
 
 
 export default function BasicMenu({ setUserData }: any) {
@@ -19,7 +18,7 @@ export default function BasicMenu({ setUserData }: any) {
     const logoutFunction = () => {
         navigation('/');
         setUserData({});
-        setAccessToken("");
+        localStorage.clear();
         console.log("Storage cleared");
     }
 
@@ -47,13 +46,3 @@ export default function BasicMenu({ setUserData }: any) {
         </div>
     );
 }
-
-
-{/* <Button
-id="basic-button"
-aria-controls={open ? 'basic-menu' : undefined}
-aria-haspopup="true"
-aria-expanded={open ? 'true' : undefined}
-onClick={handleClick}
->
-</Button> */}

@@ -2,14 +2,13 @@ import { useState } from 'react'
 import { User } from '../../types/User';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import toast from 'react-hot-toast';
-import { getAccessToken } from '../../util/token';
 
 export default function () {
   const [userList, setUserList] = useState<Array<User>>();
 
 
   const fetchUsers = async () => {
-    let localToken: string = getAccessToken() || '';
+    const localToken = localStorage.getItem("token") || '';
 
     const requestOptions = {
       method: 'GET',
@@ -30,7 +29,6 @@ export default function () {
       toast.error("Couldn't get user list.")
     }
   }
-
 
   return (
     <>

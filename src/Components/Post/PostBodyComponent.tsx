@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import { MdModeEdit } from 'react-icons/md'
 import UpdatePostComponent from './UpdatePostComponent';
 import { jwtDecode } from 'jwt-decode';
-import { getAccessToken } from '../../util/token';
 
 export default function PostBodyComponent(props: any) {
-  const token = getAccessToken();
+  const token = localStorage.getItem("token") || '';
   let username = "";
   if (token !== "") {
     const decoded: any = jwtDecode(token)

@@ -1,32 +1,13 @@
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
-import { jwtDecode } from 'jwt-decode';
-import React, { useEffect, useState } from 'react'
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { UserData } from '../types/UserData';
-import toast from 'react-hot-toast';
-import { MdMenu } from 'react-icons/md';
 import LoginButton from './LoginButton';
 import NavBarMenu from './NavBarMenu';
-import { getAccessToken } from '../util/token';
 
-export default function NavBar() {
-  const [userData, setUserData] = useState<UserData>({ isLogged: false })
-
-  useEffect(() => {
-    const token = getAccessToken();
-    if (token !== "") {
-      const decoded: any = jwtDecode(token)
-      setUserData({ isLogged: true, username: decoded.username, id: decoded.id });
-    }
-  }, [])
-
-  const logout = () => {
-    
-  }
-
+export default function NavBar({ children, userData, setUserData }: any) {
 
   return (
     <>
+
       <nav className='flex flex-row w-screen justify-between fixed top-0 left-0 p-4 bg-slate-200 hidden'>
         <ul className='flex justify-between gap-4 w-auto text-left'>
           <li>
@@ -42,15 +23,10 @@ export default function NavBar() {
             </li>
           )}
         </ul>
-        {userData.isLogged
-          ? (
+        {userData.isLogged && (
             <ul className='flex items-center pr-3'>
               <li className='pr-1'>Welcome,</li>
               <li className='pr-4'>{userData.username}</li>
-            </ul>
-          ) : (
-            <ul className='flex justify-between gap-4 w-auto'>
-
             </ul>
           )}
       </nav>
@@ -65,12 +41,17 @@ export default function NavBar() {
                 </Link>
               </Typography>
               {userData.isLogged ? (
-                <LoginButton setUserData={setUserData}/>
+                <LoginButton setUserData={setUserData} />
               ) : (
                 <ul className='flex gap-4'>
                   <li>
                     <Link to={'/login'}>
                       <Button variant="contained">Login</Button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={'/register'}>
+                      <Button variant="contained">Register</Button>
                     </Link>
                   </li>
                 </ul>
@@ -79,6 +60,10 @@ export default function NavBar() {
           </AppBar>
         </Box>
       </nav>
+      {children}
     </>
-  )
+  );
 }
+
+
+

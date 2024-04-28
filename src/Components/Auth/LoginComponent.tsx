@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button, TextField } from '@mui/material';
 import toast from 'react-hot-toast';
 import MESSAGES from '../../util/messages';
-import { getAccessToken, setAccessToken } from "../../util/token"
+import { UserData } from '../../types/UserData';
 
-export default function LoginComponent() {
+export default function LoginComponent({ setUserData }: any) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,8 +26,9 @@ export default function LoginComponent() {
     })
       .then(res => res.json())
       .then((data: any) => {
-        setAccessToken(data.token);
-        navigate("/");  
+        localStorage.setItem("token", data.token);
+        setUserData(data.token);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err)

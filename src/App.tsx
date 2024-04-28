@@ -12,26 +12,41 @@ import CreatePostComponent from './Components/Post/CreatePostComponent'
 import GetAllPostsComponent from './Components/Post/GetAllPostsComponent'
 import GetPostByIdComponent from './Components/Post/GetPostByIdComponent'
 import PrivateRoutes from './util/PrivateRoutes'
+import { useEffect, useState } from 'react'
+import { jwtDecode } from 'jwt-decode'
+import { UserData } from './types/UserData'
 
 function App() {
+  const [userData, setUserData] = useState<UserData>({ isLogged: false })
+
+  useEffect(() => {
+    if (userData.isLogged != true) {
+      const token = localStorage.getItem("token") || '';
+      if (token !== "") {
+        const decoded: any = jwtDecode(token)
+        setUserData({ isLogged: true, username: decoded.username, id: decoded.id });
+      }
+    }
+  }, [userData])
 
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path='/login' element={<LoginComponent />} />
-        <Route path='/register' element={<RegisterComponent />} />
-        <Route path='/' element={<HomeComponent />} />
-        <Route element={<PrivateRoutes />} >
-          <Route path='/createPost' element={<CreatePostComponent />} />
-          <Route path='/get' element={<GetByIdComponent />} />
-          <Route path='/delete' element={<DeleteByIdComponent />} />
-          <Route path='/user/:id' element={<UserPageComponent />} />
-          <Route path='/posts' element={<GetAllPostsComponent />} />
-          <Route path='/updatePost' element={<GetPostByIdComponent />} />
-        </Route>
-      </Routes>
-      <Toaster />
+      <NavBar userData={userData} setUserData={setUserData}>
+        <Routes>
+          <Route path='/' element={<HomeComponent />} />
+          <Route path='/login' element={<LoginComponent setUserData={setUserData}/>} />
+          <Route path='/register' element={<RegisterComponent setUserData={setUserData} />} />
+          <Route element={<PrivateRoutes />} >
+            <Route path='/createPost' element={<CreatePostComponent />} />
+            <Route path='/get' element={<GetByIdComponent />} />
+            <Route path='/delete' element={<DeleteByIdComponent />} />
+            <Route path='/user/:id' element={<UserPageComponent />} />
+            <Route path='/posts' element={<GetAllPostsComponent />} />
+            <Route path='/updatePost' element={<GetPostByIdComponent />} />
+          </Route>
+        </Routes>
+        <Toaster />
+      </NavBar>
     </>
   )
 }

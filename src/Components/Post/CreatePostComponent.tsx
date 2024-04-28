@@ -6,7 +6,6 @@ import { jwtDecode } from 'jwt-decode';
 import { UserData } from '../../types/UserData';
 import MESSAGES from '../../util/messages';
 import { useNavigate } from 'react-router-dom';
-import { getAccessToken } from '../../util/token';
 
 export default function CreatePostComponent() {
   const [title, setTitle] = useState<String>();
@@ -15,7 +14,7 @@ export default function CreatePostComponent() {
 
   const handlePost = async (e: any) => {
     e.preventDefault();
-    let localToken: string = getAccessToken() || '';
+    const localToken = localStorage.getItem("token") || '';
     const decoded: UserData = jwtDecode(localToken)
     let createdBy = decoded.username;
 
