@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { Post } from '../../types/Post';
 import PostBodyComponent from './PostBodyComponent';
@@ -6,7 +6,6 @@ import { Button } from '@mui/material';
 import MESSAGES from '../../util/messages';
 import { jwtDecode } from 'jwt-decode';
 import { UserData } from '../../types/UserData';
-import { useNavigate } from 'react-router-dom';
 export default function GetAllPostsComponent() {
   const [postList, setPostList] = useState<Array<Post>>([]);
   const [userData, setUserData] = useState<UserData>({ isLogged: false })
@@ -58,11 +57,11 @@ export default function GetAllPostsComponent() {
 
 
   return (
-    <>
+    <div className='pb-16'>
       {userData.isLogged ? (
 
         <div className='pt-16'>
-        <h1 className='text-3xl'>GetAllPostsComponent</h1>
+        <h1 className='text-3xl'>Posts</h1>
         <div className='grid grid-rows-4 grid-flow-col gap-4 p-6 items-center'>
           {postList.map((post) => (
             <PostBodyComponent key={post.id} post={post} />
@@ -73,6 +72,6 @@ export default function GetAllPostsComponent() {
         ) : ( 
           <div className='pt-16'>This is a protected route, please login to see this page.</div>
         )}
-    </>
+    </div>
   )
 }

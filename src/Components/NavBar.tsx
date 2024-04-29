@@ -23,12 +23,7 @@ export default function NavBar({ children, userData, setUserData }: any) {
             </li>
           )}
         </ul>
-        {userData.isLogged && (
-            <ul className='flex items-center pr-3'>
-              <li className='pr-1'>Welcome,</li>
-              <li className='pr-4'>{userData.username}</li>
-            </ul>
-          )}
+
       </nav>
       <nav className='top-0 left-0 fixed w-screen'>
         <Box sx={{ flexGrow: 1 }}>
@@ -41,7 +36,13 @@ export default function NavBar({ children, userData, setUserData }: any) {
                 </Link>
               </Typography>
               {userData.isLogged ? (
-                <LoginButton setUserData={setUserData} />
+                <>
+                  <ul className='flex items-center pr-3'>
+                    <li className='pr-1 hidden sm:block'>Welcome,</li>
+                    <li className=''>{userData.username}</li>
+                  </ul>
+                  <LoginButton setUserData={setUserData} />
+                </>
               ) : (
                 <ul className='flex gap-4'>
                   <li>

@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
-import { MdModeEdit } from 'react-icons/md'
+
 import UpdatePostComponent from './UpdatePostComponent';
 import { jwtDecode } from 'jwt-decode';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export default function PostBodyComponent(props: any) {
   const token = localStorage.getItem("token") || '';
@@ -12,20 +18,28 @@ export default function PostBodyComponent(props: any) {
   }
   const post = props.post
   return (
-    <div className='w-auto text-left border-2 border-black p-2 rounded-lg'>
-      <div className='flex justify-between'>
-        <h1 className='text-2xl'>{post.title}</h1>
+    <Card sx={{ minWidth: 275, maxWidth:500 }}>
+      <CardContent>
+        <Typography className='text-right' sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {post.createdOn}
+        </Typography>
+        <Typography variant="h5" component="div">
+          {post.title}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {post.createdBy}
+        </Typography>
+        <Typography variant="body2">
+          {post.content}
+        </Typography>
+      </CardContent>
+      <CardActions>
         {(username == post.createdBy) && (
-          <>
+          <div className='flex justify-end w-full mr-4 mb-2'>
             <UpdatePostComponent post={post} />
-          </>
+          </div>
         )}
-      </div>
-      <p className='pl-4'>{post.content}</p>
-      <div className='flex flex-row justify-between'>
-        <p>Created by: {post.createdBy}</p>
-        <p>{post.createdOn}</p>
-      </div>
-    </div>
+      </CardActions>
+    </Card>
   )
 }

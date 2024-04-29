@@ -15,6 +15,7 @@ import PrivateRoutes from './util/PrivateRoutes'
 import { useEffect, useState } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { UserData } from './types/UserData'
+import Footer from "./Components/Footer"
 
 function App() {
   const [userData, setUserData] = useState<UserData>({ isLogged: false })
@@ -46,6 +47,7 @@ function App() {
           </Route>
         </Routes>
         <Toaster />
+        <Footer />
       </NavBar>
     </>
   )
